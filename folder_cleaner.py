@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# folder_cleaner.py
+#folder_cleaner.py
 
 import os
 
@@ -14,8 +14,19 @@ Author: Tim Harton, tim@harton.co
 Date: 2013-08-14
 """
 
+def find_files(tree_search=True):
+    """
+    Finds all the files in the current directory
+    Input:  tree_search-  search subtrees or not
+    Output; files all the files found
+    """
+    files = []
+    return files
+
 # Selecting all the files in current path including sub directories
-files  = [f for f in os.walk('.') if os.path.isfile(f)]
-for  in files:
-    print os.stat(fpath)
+files  =  [files for root, dirs, files in os.walk('.')]
+for f in files:
+    #print os.stat(f)
+    print f
     
+        
