@@ -14,19 +14,34 @@ Author: Tim Harton, tim@harton.co
 Date: 2013-08-14
 """
 
-def find_files(tree_search=True):
+class Folder():
     """
-    Finds all the files in the current directory
-    Input:  tree_search-  search subtrees or not
-    Output; files all the files found
+    A Class which provides utilities for file cleanup.
     """
-    files = []
-    return files
+    def __init__(self, path='.'):
+        self.path = path 
 
-# Selecting all the files in current path including sub directories
-files  =  [files for root, dirs, files in os.walk('.')]
-for f in files:
-    #print os.stat(f)
-    print f
+    def find_files(self, tree_search=True):
+        """
+        Finds all the files in the current directory
+        Input:  tree_search-  search subtrees or not
+        Output; files all the files found
+        """
+        files = []
+        if tree_search:
+            # Selecting all the files in current path including sub directories
+            filelists  =  [files for root, dirs, files in os.walk(self.path)]
+            files = [f for f_list in filelists for f in f_list]
+            for f in files:
+                    
+            
+            #print [f for f in 
+            #for file_list in filelists:
+            #    for f in file_list:
+            #                print f
     
-        
+        return files
+
+if __name__ == "__main__":
+    folder = Folder()
+    folder.find_files()
