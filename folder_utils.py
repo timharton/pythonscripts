@@ -1,7 +1,8 @@
 #!/usr/bin/python
 #folder_cleaner.py
 
-import os
+from os import walk, listdir
+from os.path import join, isfile
 
 """
 This script will be run on a regular basis either through cron or another
@@ -27,21 +28,22 @@ class Folder():
         Input:  tree_search-  search subtrees or not
         Output; files all the files found
         """
-        files = []
+        file_paths = []
         if tree_search:
             # Selecting all the files in current path including sub directories
-            filelists  =  [files for root, dirs, files in os.walk(self.path)]
-            files = [f for f_list in filelists for f in f_list]
-            for f in files:
-                    
+            for root, dirs, files in walk(self.path):
+                for f in files:
+                    file_paths.append(join(root, f))
             
-            #print [f for f in 
-            #for file_list in filelists:
-            #    for f in file_list:
-            #                print f
-    
-        return files
+        else: 
+            for f in listdir(self.path):
+                file_path = join(self.path,f)
+                if isfile(file_path):
+                    file_paths.append(file_path)
+        
+        return file_paths
 
 if __name__ == "__main__":
-    folder = Folder()
-    folder.find_files()
+    folder = Folder('test_path')
+    files = folder.find_files(False)
+    print files
